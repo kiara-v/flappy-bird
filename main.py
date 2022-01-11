@@ -2,7 +2,6 @@
 Entrance of the program.
 """
 from game import *
-from postprocessing import *
 import random
 
 

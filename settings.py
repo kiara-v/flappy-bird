@@ -4,7 +4,7 @@ Define some constant parameters and program settings.
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 500
-TITLE = 'Flappy Bird AI via Evolutionary Cartesian Genetic Programming'
+TITLE = 'Flappy Bird AI'
 FPS = 60
 IMG_DIR = './img'
 SND_DIR = './snd'
