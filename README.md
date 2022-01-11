@@ -1,8 +1,3 @@
-# Learn to Play Flappy Bird using Cartesian Genetic Programming (Evolutionary Computation)
-[**NEW**] You can play the flappy bird AI online by repl.it now! Open it and click 'Run'.  (Note repl.it doesn't support sounds yet and thus I have turned them off.)
-
-[![Run on Repl.it](https://repl.it/badge/github/ShuhuaGao/gpFlappyBird)](https://repl.it/github/ShuhuaGao/gpFlappyBird)
-
 ## Overview
 
 We use cartesian genetic programming (a special form of evolutionary computation) to evolve an AI core to learn to play the *Flappy Bird* game. In brief, the program will learn a math function built with basic arithmetic operators to generate control action based on the current game state. More details about the background, the theory, and some implementation issues are given below. A demo is shown in the following (the blue bird is a human player which can be added at any time.)
@@ -21,13 +16,8 @@ We use cartesian genetic programming (a special form of evolutionary computation
 ### Dependencies:
 - Python 3.5 or higher
 - [pygame](https://www.pygame.org/news).  Install it with `pip install pygame`
-### Download this reposity 
-`git clone https://github.com/ShuhuaGao/gpFlappyBird`
-or download as a zip file directly.
-## How to play
-### Run the game
-First change your directory into the downloaded *gpFlappyBird*. Then, run the game by 
-`python main_entry.py`
+- sympy
+- networkx
 
 ### Shortcut keys
 - <kbd>Ctrl</kbd>+<kbd>H</kbd>: add a human player (a blue bird) at any time
@@ -45,8 +35,10 @@ First change your directory into the downloaded *gpFlappyBird*. Then, run the ga
 - <kbd>Ctrl</kbd>+<kbd>2</kbd>: speed x2
 
 - <kbd>Ctrl</kbd>+<kbd>3</kbd>: speed x3
-## Background
 
+- <kbd>Ctrl</kbd>q<kbd>: quit game
+
+## Background
 In GitHub, there are many projects aiming to implement artificial intelligence for the *[Flappy Bird](https://en.wikipedia.org/wiki/Flappy_Bird)* game due to its simplicity. This game has only one control action: flap or not. Generally, the algorithms of these projects can be classified into two types. The first depends on neuron evolution, which builds a neural network to map the game state to the control action, and weights of the network are updated using evolutionary algorithms instead of backpropagation, for example, [FlappyLearning](https://github.com/xviniette/FlappyLearning) on GitHub and the [tutorial](https://threads-iiith.quora.com/Neuro-Evolution-with-Flappy-Bird-Genetic-Evolution-on-Neural-Networks) on Quora. The other type focuses on reinforcement learning (RL), typical using a deep Q-Network trained by Q-learning, for example, the [DeepLearningFlappyBird](https://github.com/yenchenlin/DeepLearningFlappyBird) on GitHub. Note that the neuron-evolution based approaches usually gets the internal states like the distance between the bird and the pipe inside the game with some game APIs, while deep RL based methods can accept raw pixels as inputs directly.
 
 In this project, I attempt to develop a *brain* for the flappy bird from another perspective. We know that in other projects, the central neural network is used to learn some function *f* to map the game state *x* to the control action *y*. In the mini game *Flappy Bird*, our intuition is that this mapping should be relatively simple. If so, can we construct the function directly with some basic operations, like {+, -, \*, /}, instead of a neural network approximating this function? As  a programmer, you may try to write a function for this purpose with some physics knowledge, if possible. However, **we want to evolve such a program automatically to control the bird's flap**. Starting here, we will resort to another algorithmic tool, called [genetic programming](https://en.wikipedia.org/wiki/Genetic_programming). 
@@ -65,6 +57,7 @@ Unlike the common setting in above mentioned projects, this *FlappyBird* game is
 Now the function we want to learn (evolve) is *y=f(v, h, g)*. In our application, obviously *f* outputs continuous values if *f* only contains basic arithmetic operators. Therefore, just like any binary classification task, we define the control rule as follows: if *y>0*, then flap; otherwise, do not flap.
 
 Now the remaining question is to implement certain GP to learn *f*. The most commonly used and the oldest representation of the program in GP is to use a tree structure, something similar to a syntax tree, proposed by GP's establisher, John Koza. However, nowadays, there are also several non-tree representations, which is likely to work better than the tree based one. In this project, we use the Cartesian Genetic Programming (CGP) method, which relies on graph representation.
+
 ### Cartesian Genetic Programming (CGP)
 Cartesian genetic programming is a form of genetic programming, developed by Julian Francis Miller, which uses a graph representation to encode computer programs. It is called ‘Cartesian’ because it represents a program using a two-dimensional grid of nodes. The following figure ([source](https://www.semanticscholar.org/paper/Breast-cancer-detection-using-cartesian-genetic-Ahmad-Khan/b30a33d54637e8323710a4f84973b1d3045c6d3e)) illustrates a CGP graph with 3 inputs, 3 outputs, and 9 computational nodes, which looks like a circuit.
 ![CGP-example](./doc/img/CGP-example.png)
@@ -122,8 +115,4 @@ Please refer to the [pp](./pp) directory for an example of evolved math formula 
 [2] Wilson, Dennis G., Sylvain Cussat-Blanc, Hervé Luga, and Julian F. Miller. "Evolving simple programs for playing Atari games." arXiv preprint arXiv:1806.05695 (2018). [Arxiv](https://arxiv.org/abs/1806.05695)
 
 If you are interested in *pygame*, then excellent lessons and tutorials can be found on [KidsCanCode](http://kidscancode.org/lessons/).
-
-## Related packages
-If you want to apply genetic programming (GP) in your own project, the core code in `cgp.py` and `postprocessing.py` may be reused. An alternative (and better) choice is to resort to the full-fledged library for GP, [geppy](https://github.com/ShuhuaGao/geppy), which implements another popular GP technique called *gene expression programming*. [geppy](https://github.com/ShuhuaGao/geppy) is a devoted and well documented library.
-
 

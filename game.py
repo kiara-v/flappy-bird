@@ -202,6 +202,9 @@ class Game:
                             self._create_human_player()
                     elif event.key == pg.K_m:   # ctrl+m: music on/off
                         self.music_on = not self.music_on
+                    elif event.key == pg.K_q: # ctrl+q: quit game
+                        quit()
+                        exit()
                 elif event.key == pg.K_SPACE or event.key == pg.K_UP:   # space: flap the human player's bird
                     if self._human_bird is not None and self._human_bird.alive():
                         self._human_bird.flap()

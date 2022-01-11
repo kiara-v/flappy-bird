@@ -12,6 +12,7 @@ def main():
     while game.running and game.current_generation < N_GEN:
         game.reset()
         game.run()
+        
 
     if PP_FORMULA or PP_GRAPH_VISUALIZATION:
         gs = [extract_computational_subgraph(ind) for ind in game.pop]
