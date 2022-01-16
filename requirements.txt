@@ -120,7 +120,6 @@ google-pasta==0.2.0
 grpcio==1.43.0
 gunicorn==20.0.4
 h5py==3.6.0
-heroku==0.1.4
 heroku3==5.1.4
 humanfriendly==10.0
 idna==3.3
