@@ -3,9 +3,9 @@
 	<head>
 		<title>Flappy Bird AI</title>
 	</head>
-	<input type="button" id='script' name="scriptbutton" value=" PLAY " onclick="exec('python C:\Users\vongm\Downloads\flappy-bird\flappy\app.py');">
+	<!-- <input type="button" id='script' name="scriptbutton" value=" PLAY " onclick="exec('python C:\Users\vongm\Downloads\flappy-bird\flappy\app.py');"> -->
 	
-	<!-- <script>
+	<script>
         function goPython(){
             $.ajax({
               url: "C:\Users\vongm\Downloads\flappy-bird\flappy\app.py",
@@ -14,5 +14,35 @@
              alert('finished python script');;
             });
         }
-    </script> -->
+    </script>
+
+	<!-- <script>
+
+		$(document).ready(function(){
+		
+		$("#b1").click(function(){
+		
+		$.ajax({
+		
+		method: "GET",
+		
+		url: "C:\Users\vongm\Downloads\flappy-bird\flappy\app.py",
+		
+		data: {"place" : value},
+		
+		dataType: "text",
+		
+		success: function(result){
+		
+		var data=JSON.parse(result);
+		
+		console.log(result);
+		
+		}
+		
+		});
+		
+		});
+		
+	</script> -->
 </html>
