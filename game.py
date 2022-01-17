@@ -154,8 +154,8 @@ class Game:
                     return
                 if event.type == pg.KEYDOWN:
                     pressed = pg.key.get_pressed()
-                    ctrl_held = pressed[pg.K_LCTRL] or pressed[pg.K_RCTRL]
-                    if ctrl_held and event.key == pg.K_p:
+                    # ctrl_held = pressed[pg.K_LCTRL] or pressed[pg.K_RCTRL]
+                    if event.key == pg.K_p:
                         self._is_paused = False
                         return
                 self._draw_text("Paused", x=SCREEN_WIDTH // 2 - 50, y=SCREEN_HEIGHT // 2 - 10,
@@ -185,26 +185,25 @@ class Game:
                 self.playing = False
                 self.running = False
             elif event.type == pg.KEYDOWN:
-                pressed = pg.key.get_pressed()
-                ctrl_held = pressed[pg.K_LCTRL] or pressed[pg.K_RCTRL]
-                if ctrl_held:
-                    if event.key == pg.K_p:  # ctrl + p: pause the game
-                        self._is_paused = True
-                        self._pause()
-                    elif event.key == pg.K_1:  # ctrl + 1 (2, 3): standard frame rate
-                        self._fps = FPS
-                    elif event.key == pg.K_2:
-                        self._fps = 2 * FPS
-                    elif event.key == pg.K_3:
-                        self._fps = 3 * FPS
-                    elif event.key == pg.K_h:  # ctrl+h: create a human player
-                        if not self._human_bird or not self._human_bird.alive():
-                            self._create_human_player()
-                    elif event.key == pg.K_m:   # ctrl+m: music on/off
-                        self.music_on = not self.music_on
-                    elif event.key == pg.K_q: # ctrl+q: quit game
-                        quit()
-                        exit()
+                if event.key == pg.K_p:  # p: pause the game
+                    self._is_paused = True
+                    self._pause()
+                elif event.key == pg.K_1:  # 1 (2, 3): standard frame rate
+                    self._fps = FPS
+                elif event.key == pg.K_2:
+                    self._fps = 2 * FPS
+                elif event.key == pg.K_3:
+                    self._fps = 3 * FPS
+                elif event.key == pg.K_h:  # h: create a human player
+                    if not self._human_bird or not self._human_bird.alive():
+                        self._create_human_player()
+                elif event.key == pg.K_m:   # m: music on/off
+                    self.music_on = not self.music_on
+                elif event.key == pg.K_q: # q: quit game
+                    self.playing = False
+                    self.running = False
+                    quit()
+                    exit()
                 elif event.key == pg.K_SPACE or event.key == pg.K_UP:   # space: flap the human player's bird
                     if self._human_bird is not None and self._human_bird.alive():
                         self._human_bird.flap()
@@ -255,7 +254,7 @@ class Game:
         # count the score: one point per frame
         for bird in self.birds:
             bird.score += 1  # when a bird dies, its score will be set to the CGP individual's fitness automatically
-
+        
         self._max_score += 1
         self._max_score_so_far = max(self._max_score_so_far, self._max_score)
         # spawn a new pipe if necessary
